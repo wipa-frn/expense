@@ -45,22 +45,23 @@ public class User {
 
             totalExpense += amount;
             totalBalance -= amount;
-            expenseList.add(-amount);
+            expenseList.add(amount);
             incomeList.add(0.0);
             balanceList.add(totalBalance);
 
     }
-    public void statement(){
-        System.out.println("               <<Statement of you account book >>");
-        System.out.println("_______________________________________________________________________");
-        System.out.println(String.format("|%20s|%20s|%20s|\n","Income","Expense","Balance"));
+    public String statement(){
+        String statementStr;
+        statementStr = "               <<Statement of you account book >>\n"
+        +"_______________________________________________________________________\n"+
+        String.format("|%20s|%20s|%20s|\n\n","Income","Expense","Balance");
         for (int i = 0 ; i < incomeList.size() ; i++ ){
-            System.out.println(String.format("|%20.2f|%20.2f|%20.2f|",incomeList.get(i),-expenseList.get(i),balanceList.get(i)));
+            statementStr += String.format("|%20.2f|%20.2f|%20.2f|\n",incomeList.get(i),expenseList.get(i),balanceList.get(i));
         }
-        System.out.println("_______________________________________________________________________");
-        System.out.println(String.format("|%20.2f|%20.2f|%20.2f| Total ",totalIncome,-totalExpense,totalBalance));
-        System.out.println("=======================================================================\n");
-
+        statementStr += "_______________________________________________________________________\n"+
+        String.format("|%20.2f|%20.2f|%20.2f| Total \n",totalIncome,-totalExpense,totalBalance)+
+        "=======================================================================\n";
+        return statementStr;
     }
 
     public double getTotalIncome() {

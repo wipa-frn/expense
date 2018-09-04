@@ -7,16 +7,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 
-    User user;
+    User user,user2;
     double initialBalance = 500;
 
     @BeforeEach
     void setUp() {
         user = new User(initialBalance);
+        user2 = new User();
     }
 
     @Test
-    public void testIncomeTotalBalance() {
+    public void setUpInitialBalanceTest(){
+        assertEquals(500,user.getTotalBalance());
+    }
+    @Test
+    public void nonSetUpInitialBalanceTest(){
+        assertEquals(0,user2.getTotalBalance());
+    }
+
+    @Test
+    public void incomeTotalBalanceTest() {
 
         user.income(200);
         user.expense(100);
@@ -34,7 +44,7 @@ class UserTest {
     }
 
     @Test
-    void testStatementTotalBalance() {
+    void statementTotalBalanceTest() {
         user.income(200);
         user.income(100);
         user.expense(300);
@@ -54,14 +64,14 @@ class UserTest {
     }
 
     @Test
-    void getTotalExpense() {
+    void getTotalExpenseTest() {
         user.expense(400);
         user.expense(150);
         assertEquals(550,user.getTotalExpense());
     }
 
     @Test
-    void getTotalBalance() {
+    void getTotalBalanceTest() {
         user.income(200);
         user.income(100);
         user.expense(400);

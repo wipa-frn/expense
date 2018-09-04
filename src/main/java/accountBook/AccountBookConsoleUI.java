@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class AccountBookConsoleUI {
     public void start(){
         Scanner in = new Scanner(System.in);
-        User user = new User();
+        User user = new User(500);
         System.out.println("Welcome to Account Book...");
         System.out.println("Please press i = income , e = expense ,s = show your statement ,q = quit");
         String command;
@@ -47,13 +47,13 @@ public class AccountBookConsoleUI {
                     user.expense(amount);
 
             } else if (command.equalsIgnoreCase("s")) {
-                user.statement();
+                System.out.println(user.statement());
             }
             System.out.println("Please press i = income , e = expense ,s = show your statement ,q = quit");
             command = in.next();
         }
         if (command.equalsIgnoreCase("q")) {
-            System.out.print("Account Book close...");
+            System.out.print("Account Book closed.");
             return;
         }
     }
