@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         format = {"pretty", "html:target/cucumber"},
-        features = {"classpath:features/income.feature"}
+        features = {"src/main/resources/income.feature"}
 )
 public class CucumberIncomeTest {
 
