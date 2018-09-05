@@ -7,11 +7,17 @@ import java.util.Scanner;
  */
 public class AccountBookConsoleUI {
     public void start(){
-        Scanner in = new Scanner(System.in);
-        User user = new User(500);
-        System.out.println("Welcome to Account Book...");
-        System.out.println("Please press i = income , e = expense ,s = show your statement ,q = quit");
         String command;
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Welcome to Account Book...");
+        System.out.print("Enter your total balance in account book : ");
+        command=in.next();
+
+        User user = new User(Double.parseDouble(command));
+
+        System.out.println("Please press i = income , e = expense ,s = show your statement ,q = quit");
 
         command= in.next();
 
