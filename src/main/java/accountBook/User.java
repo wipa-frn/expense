@@ -51,20 +51,6 @@ public class User {
 
     }
 
-    public String statement() {
-        String statementStr;
-        statementStr = "               <<Statement of you account book >>\n"
-                + "_______________________________________________________________________\n" +
-                String.format("|%20s|%20s|%20s|\n\n", "Income", "Expense", "Balance");
-        for (int i = 0; i < incomeList.size(); i++) {
-            statementStr += String.format("|%20.2f|%20.2f|%20.2f|\n", incomeList.get(i), expenseList.get(i), balanceList.get(i));
-        }
-        statementStr += "_______________________________________________________________________\n" +
-                String.format("|%20.2f|%20.2f|%20.2f| Total \n", totalIncome, -totalExpense, totalBalance) +
-                "=======================================================================\n";
-        return statementStr;
-    }
-
     public double getTotalIncome() {
         return totalIncome;
     }
@@ -77,4 +63,15 @@ public class User {
         return totalBalance;
     }
 
+    public ArrayList<Double> getIncomeList() {
+        return incomeList;
+    }
+
+    public ArrayList<Double> getExpenseList() {
+        return expenseList;
+    }
+
+    public ArrayList<Double> getBalanceList() {
+        return balanceList;
+    }
 }

@@ -79,4 +79,38 @@ class UserTest {
         assertEquals(250,user.getTotalBalance());
     }
 
+
+    @Test
+    void getTotalBalanceAtThirdTransaction(){
+
+        user.income(200);
+        user.income(50);
+        user.expense(400);
+        user.expense(150);
+        assertEquals(350,Double.parseDouble(String.valueOf(user.getBalanceList().get(3))));
+    }
+
+    @Test
+    void getAmountIncomeAtThirdTransaction(){
+
+        user.expense(400);
+        user.expense(150);
+        user.income(200);
+        user.income(50);
+
+        assertEquals(200,Double.parseDouble(String.valueOf(user.getIncomeList().get(3))));
+    }
+
+    @Test
+    void getAmountExpenseAtThirdTransaction(){
+
+        user.expense(400);
+        user.expense(150);
+        user.income(200);
+        user.income(50);
+
+        assertEquals(0,Double.parseDouble(String.valueOf(user.getExpenseList().get(3))));
+    }
+
+
 }
