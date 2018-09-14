@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="450.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="History">
+   <children>
+      <Label layoutX="127.0" layoutY="14.0" prefHeight="24.0" prefWidth="46.0" text="History" />
+      <Label layoutX="37.0" layoutY="83.0" text="Income" />
+      <Label layoutX="38.0" layoutY="119.0" text="Paid" />
+      <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="83.0" prefHeight="24.0" prefWidth="165.0" text="0.00 ฿" textAlignment="RIGHT" />
+      <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="118.0" prefHeight="24.0" prefWidth="165.0" text="0.00 ฿" textAlignment="RIGHT" />
+   </children>
+</AnchorPane>
