@@ -2,17 +2,75 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="169.0" layoutY="8.0" prefHeight="38.0" prefWidth="125.0" text=" Wipawadee Monkhut" />
-      <Label alignment="CENTER_RIGHT" layoutX="32.0" layoutY="118.0" prefHeight="55.0" prefWidth="111.0" text="0.00 ฿" />
-      <Label alignment="CENTER_RIGHT" layoutX="158.0" layoutY="118.0" prefHeight="55.0" prefWidth="111.0" text="0.00 ฿" />
-      <Label layoutX="47.0" layoutY="80.0" prefHeight="38.0" prefWidth="77.0" text="TotalBalance" />
-      <Label layoutX="173.0" layoutY="80.0" prefHeight="38.0" prefWidth="77.0" text="TotalExpense" />
-      <Button layoutX="88.0" layoutY="213.0" mnemonicParsing="false" text="History" />
-      <Button layoutX="158.0" layoutY="213.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Enter" />
-   </children>
-</AnchorPane>
+<BorderPane fx:id="homeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accountBook_Javafx.HomeController">
+   <top>
+      <AnchorPane prefHeight="45.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="33.0" fitWidth="40.0" layoutX="296.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/user.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="-1.0" layoutY="7.0" prefHeight="32.0" prefWidth="335.0" text="Account Book" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="24.0" layoutY="97.0" prefHeight="38.0" prefWidth="106.0" text="Total Balance">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="26.0" layoutY="167.0" prefHeight="38.0" prefWidth="77.0" text="Income">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="history" layoutX="91.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleButtonHistory" prefHeight="38.0" prefWidth="153.0" text="History">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="addTransaction" layoutX="91.0" layoutY="364.0" mnemonicParsing="false" onAction="#handleButtonAddTransaction" prefHeight="38.0" prefWidth="153.0" text="Add Transaction">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="exit" layoutX="91.0" layoutY="414.0" mnemonicParsing="false" onAction="#handleButtonExit" prefHeight="38.0" prefWidth="153.0" text="Exit">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Label fx:id="showTotalBalance" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="94.0" prefHeight="43.0" prefWidth="183.0" text="0.00 ฿" textAlignment="RIGHT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="26.0" layoutY="205.0" prefHeight="38.0" prefWidth="77.0" text="Paid">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="showTotalIncome" alignment="CENTER_RIGHT" layoutX="84.0" layoutY="167.0" prefHeight="33.0" prefWidth="226.0" text="0.00 ฿" />
+            <Label fx:id="showTotalPaid" alignment="CENTER_RIGHT" layoutX="83.0" layoutY="208.0" prefHeight="33.0" prefWidth="227.0" text="0.00 ฿" />
+            <Label fx:id="showDate" alignment="CENTER" layoutY="35.0" prefHeight="35.0" prefWidth="335.0" text="DAY/MOUNT/YEAR">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="showUsername" alignment="CENTER_RIGHT" layoutX="191.0" layoutY="2.0" prefHeight="17.0" prefWidth="139.0" text="Username" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
