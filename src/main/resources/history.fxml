@@ -43,9 +43,9 @@
             <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="24.0" prefHeight="24.0" prefWidth="165.0" text="0.00 ฿" textAlignment="RIGHT" />
             <TableView fx:id="historyTable" layoutY="97.0" prefHeight="412.0" prefWidth="335.0" stylesheets="@style.css">
               <columns>
-                <TableColumn fx:id="dateColumn" prefWidth="79.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Date" />
-                <TableColumn fx:id="categoryColumn" prefWidth="134.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
-                  <TableColumn fx:id="amountColumn" prefWidth="121.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Amount" />
+                <TableColumn fx:id="dateColumn" onEditCommit="#onEditDate" prefWidth="79.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Date" />
+                <TableColumn fx:id="categoryColumn" onEditCommit="#onEditCategory" prefWidth="134.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
+                  <TableColumn fx:id="amountColumn" onEditCommit="#onEditAmount" prefWidth="121.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Amount" />
               </columns>
             </TableView>
          </children>

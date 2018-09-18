@@ -65,7 +65,7 @@ public class AddIncomeController implements Initializable{
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
         transaction.setMemory(memo.getText());
         transaction.setAmount(Double.parseDouble(amount.getText()));
-        transaction.setAmountFormat(String.format("%.2f ฿",Double.parseDouble(amount.getText())));
+        transaction.setAmountFormat(String.format("%.2f",Double.parseDouble(amount.getText())));
         transaction.setDate(date.getText());
         user.addTransactionData(transaction);
 

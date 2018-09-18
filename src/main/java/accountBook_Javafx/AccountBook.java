@@ -13,9 +13,9 @@ public class AccountBook {
 
     public AccountBook(String username) {
         this.username = username;
-        this.totalIncome = 0;
-        this.totalExpense = 0;
-        this.totalBalance = 0;
+        this.totalIncome = 0.0;
+        this.totalExpense = 0.0;
+        this.totalBalance = 0.0;
     }
 
     public String getUsername() { return username; }
@@ -35,6 +35,11 @@ public class AccountBook {
     public void removeTransactionData(Transaction tran){ transactionData.remove(tran); }
 
     public double getTotalIncome() {
+        totalIncome = 0;
+        for (Transaction tran:transactionData) {
+            if(tran.getAmount() >= 0)
+                totalIncome += tran.getAmount();
+        }
         return totalIncome;
     }
 
@@ -43,6 +48,12 @@ public class AccountBook {
     }
 
     public double getTotalExpense() {
+        totalExpense = 0;
+        for (Transaction tran:transactionData) {
+            if(tran.getAmount() <= 0)
+                totalExpense += tran.getAmount();
+
+        }
         return totalExpense;
     }
 
@@ -51,31 +62,12 @@ public class AccountBook {
     }
 
     public double getTotalBalance() {
+        totalBalance = getTotalIncome()+getTotalExpense();
         return totalBalance;
     }
 
     public void setTotalBalance(double totalBalance) {
         this.totalBalance = totalBalance;
-    }
-
-    public void updateTotalBalance(){
-        totalBalance = totalIncome - totalExpense;
-    }
-
-    public void updateTotalIncome(){
-
-        for (Transaction tran:transactionData) {
-            if(tran.getAmount() >= 0)
-                totalIncome += tran.getAmount();
-        }
-    }
-
-    public void updateTotalExpense(){
-        for (Transaction tran:transactionData) {
-            if(tran.getAmount() <= 0)
-                totalIncome += tran.getAmount();
-
-        }
     }
 
     public ArrayList<String> getDateList(){

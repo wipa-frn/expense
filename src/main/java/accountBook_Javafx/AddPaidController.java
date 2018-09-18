@@ -78,7 +78,7 @@ public class AddPaidController implements Initializable{
     @FXML
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
         transaction.setAmount(-Double.parseDouble(amount.getText()));
-        transaction.setAmountFormat(String.format("-"+"%.2f ฿",Double.parseDouble(amount.getText())));
+        transaction.setAmountFormat(String.format("-"+"%.2f",Double.parseDouble(amount.getText())));
         transaction.setMemory(memo.getText());
         transaction.setDate(date.getText());
         user.addTransactionData(transaction);

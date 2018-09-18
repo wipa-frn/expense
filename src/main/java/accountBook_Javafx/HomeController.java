@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -46,7 +48,7 @@ public class HomeController implements Initializable{
     private Label showUsername;
 
     @FXML
-    void handleButtonAddTransaction(ActionEvent event) throws IOException { ;
+    void handleButtonAddTransaction(ActionEvent event) throws IOException {
 
         BorderPane panePaid = FXMLLoader.load(getClass().getResource("/addPaid.fxml"));
         homeBorderPane.getChildren().setAll(panePaid);
@@ -57,8 +59,13 @@ public class HomeController implements Initializable{
     @FXML
     void handleButtonHistory(ActionEvent event) throws IOException {
 
-        BorderPane paneHistory = FXMLLoader.load(getClass().getResource("/history.fxml"));
-        homeBorderPane.getChildren().setAll(paneHistory);
+        FXMLLoader loader = new FXMLLoader();
+        history.getScene().getWindow().hide();
+        Stage homeWindow = new Stage();
+        Parent root = loader.load(getClass().getResource("/history.fxml"));
+        Scene scene = new Scene(root);
+        homeWindow.setScene(scene);
+        homeWindow.show();
 
     }
 
@@ -76,8 +83,8 @@ public class HomeController implements Initializable{
         showDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" +calendar.get(Calendar.YEAR));
         showUsername.setText(user.getUsername());
         showTotalBalance.setText(String.format("%.2f ฿",user.getTotalBalance()));
-        showTotalIncome.setText(String.format("-%.2f ฿",user.getTotalIncome()));
-        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
+        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
+        showTotalPaid.setText(String.format("-%.2f ฿",user.getTotalExpense()));
 
     }
 }
