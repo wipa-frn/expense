@@ -54,7 +54,7 @@
    <bottom>
       <AnchorPane prefHeight="45.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;" BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="46.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;">
+            <GridPane alignment="CENTER" prefHeight="46.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,6 +79,11 @@
                   <ImageView fx:id="addTransactionButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleAddTransactionButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/add (1).png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="saveFile" fitHeight="41.0" fitWidth="42.0" layoutX="228.0" layoutY="17.0" onMouseClicked="#handleSaveFileButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@image/note.png" />
                      </image>
                   </ImageView>
                </children>
