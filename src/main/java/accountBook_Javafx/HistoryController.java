@@ -55,13 +55,16 @@ public class HistoryController implements Initializable{
     private Label paidLabel;
 
     @FXML
-    private Label showPaid;
+    private Label showTotalPaid;
 
     @FXML
-    private Label showIncome;
+    private Label showTotalIncome;
 
     @FXML
     private ImageView saveFile;
+
+    @FXML
+    private ImageView deleteButton;
 
     private ObservableList<Transaction> observableListTransaction ;
 
@@ -85,6 +88,8 @@ public class HistoryController implements Initializable{
 
         historyTable.setItems(observableListTransaction);
         historyTable.setEditable(true);
+        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
+        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
 
     }
     @FXML
@@ -94,7 +99,8 @@ public class HistoryController implements Initializable{
         double edit = Double.parseDouble(editAmountEvent.getNewValue());
         user.getTransactionData().get(indexEdit).setAmountFormat(String.format("%.02f", edit));
         user.getTransactionData().get(indexEdit).setAmount(edit);
-
+        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
+        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
     }
 
     @FXML
@@ -150,13 +156,26 @@ public class HistoryController implements Initializable{
             FileWriter fw = new FileWriter("historyFile.txt");
             PrintWriter pw = new PrintWriter(fw);
             for (Transaction t: user.getTransactionData()) {
-                pw.println(t);
+                fw.write("DATE: "+t.getDate()+", ");
+                fw.write("CATEGORY: "+t.getCategory()+", ");
+                fw.write(String.valueOf("AMOUNT: "+t.getAmountFormat()+", "));
+                fw.write("MEM: "+t.getMemory()+" //");
             }
-            pw.close();
+            System.out.println("Write on file success.");
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.printf("ERROR");
         }
+    }
+    @FXML
+    void handleClickDeleteButton(MouseEvent event) {
+        int index = historyTable.getSelectionModel().getFocusedIndex();
+        user.getTransactionData().remove(index);
+        observableListTransaction = FXCollections.observableArrayList(user.getTransactionData());
+        historyTable.setItems(observableListTransaction);
+        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
+        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
     }
 
 

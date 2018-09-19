@@ -84,7 +84,7 @@ public class HomeController implements Initializable{
         showUsername.setText(user.getUsername());
         showTotalBalance.setText(String.format("%.2f ฿",user.getTotalBalance()));
         showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
-        showTotalPaid.setText(String.format("-%.2f ฿",user.getTotalExpense()));
+        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
 
     }
 }
