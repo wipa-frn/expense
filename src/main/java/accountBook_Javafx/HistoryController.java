@@ -2,17 +2,14 @@ package accountBook_Javafx;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
@@ -20,7 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,6 +59,9 @@ public class HistoryController implements Initializable{
 
     @FXML
     private Label showIncome;
+
+    @FXML
+    private ImageView saveFile;
 
     private ObservableList<Transaction> observableListTransaction ;
 
@@ -140,6 +142,21 @@ public class HistoryController implements Initializable{
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
+    }
+
+    @FXML
+    void handleSaveFileButton(MouseEvent event) {
+        try {
+            FileWriter fw = new FileWriter("historyFile.txt");
+            PrintWriter pw = new PrintWriter(fw);
+            for (Transaction t: user.getTransactionData()) {
+                pw.println(t);
+            }
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.printf("ERROR");
+        }
     }
 
 
