@@ -18,42 +18,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EditIncomeController implements Initializable{
-    @FXML
-    private BorderPane addIncomeBorderPane;
-
-    @FXML
-    private Button incomeButton;
-
-    @FXML
-    private Button paidButton;
-
-    @FXML
-    private TextField amount;
-
-    @FXML
-    private Button enter;
-
-    @FXML
-    private Button salary;
-
-    @FXML
-    private Button pocket_money;
-
-    @FXML
-    private Button refund;
-
-    @FXML
-    private Button other;
-
-    @FXML
-    private TextField memo;
-
-    @FXML
-    private TextField date;
-
-    @FXML
-    private ImageView historyButton;
-
+    @FXML private BorderPane addIncomeBorderPane;
+    @FXML private Button incomeButton;
+    @FXML private Button paidButton;
+    @FXML private TextField amount;
+    @FXML private Button enter;
+    @FXML private Button salary;
+    @FXML private Button pocket_money;
+    @FXML private Button refund;
+    @FXML private Button other;
+    @FXML private TextField memo;
+    @FXML private TextField date;
+    @FXML private ImageView historyButton;
     Transaction transaction = new Transaction();
 
     @FXML

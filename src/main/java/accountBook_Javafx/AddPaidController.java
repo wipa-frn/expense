@@ -16,72 +16,41 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
-import static accountBook_Javafx.UserController.user;
 
 public class AddPaidController implements Initializable{
 
-    @FXML
-    private BorderPane addPaidBorderPane;
-
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField date;
-
-    @FXML
-    private Button incomeButton;
-
-    @FXML
-    private Button paidButton;
-
-    @FXML
-    private TextField amount;
-
-    @FXML
-    private Button enter;
-
-    @FXML
-    private Button food;
-
-    @FXML
-    private Button transport;
-
-    @FXML
-    private Button cosmetic;
-
-    @FXML
-    private Button study;
-
-    @FXML
-    private Button social;
-
-    @FXML
-    private Button fashion;
-
-    @FXML
-    private Button other;
-
-    @FXML
-    private TextField memo;
-
-    @FXML
-    private ImageView historyButton;
-
-    @FXML
-    private ImageView homeButton;
-
-    private int status = 0 ;        //if user click 'INCOME' status = 1 else status = 0
-    private Transaction transaction = new Transaction();
+    @FXML private BorderPane addPaidBorderPane;
+    @FXML private DatePicker date;
+    @FXML private Button incomeButton;
+    @FXML private Button paidButton;
+    @FXML private TextField amount;
+    @FXML private Button enter;
+    @FXML private Button food;
+    @FXML private Button transport;
+    @FXML private Button cosmetic;
+    @FXML private Button study;
+    @FXML private Button social;
+    @FXML private Button fashion;
+    @FXML private Button other;
+    @FXML private TextField memo;
+    @FXML private ImageView historyButton;
+    @FXML private ImageView homeButton;
+    SaveFile saveFile;
+    Transaction transaction = new Transaction();
 
     @FXML
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
-        transaction.setAmount(-Double.parseDouble(amount.getText()));
-        transaction.setAmountFormat(String.format("-"+"%.2f",Double.parseDouble(amount.getText())));
+
+        transaction.setAmount(Double.parseDouble(amount.getText()));
         transaction.setMemory(memo.getText());
-        transaction.setDate(date.getText());
-        user.addTransactionData(transaction);
+        transaction.setDate(date.getEditor().getText());
+        transaction.setType("expense");
+        saveFile = new DatabaseFile(transaction);
+        saveFile.save();
+
 
         //After add finish
         FXMLLoader loader = new FXMLLoader();
@@ -96,15 +65,6 @@ public class AddPaidController implements Initializable{
     @FXML
     void handleButtonCosmetic(ActionEvent event) {
         transaction.setCategory("Cosmetic");
-    }
-
-    @FXML
-    void handleButtonDate(ActionEvent event) {
-
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//        LocalDate date = datePicker.getValue();
-//        System.out.println(formatter.format(date));
-//        transaction.setDate(String.valueOf(formatter.format(date)));
     }
 
     @FXML
@@ -167,10 +127,6 @@ public class AddPaidController implements Initializable{
         homeWindow.show();
 //        BorderPane paneHome = FXMLLoader.load(getClass().getResource("/home.fxml"));
 //        transactionBorderPane.getChildren().setAll(paneHome);
-    }
-
-    private void setStatus(int s){
-        status = s;
     }
 
 

@@ -6,6 +6,8 @@ public class Transaction {
     private String memory;
     private Double amount;
     private String amountFormat;
+    private String type;
+    private int order;
 
 
     public Transaction() {
@@ -14,6 +16,23 @@ public class Transaction {
         this.amount = 0.00;
         this.amountFormat = "0.00";
         this.date = "--/--/--";
+
+    }
+
+    public Transaction(String date, String category, String amount) {
+        this.date = date;
+        this.category = category;
+        this.amountFormat = amount;
+
+    }
+
+    public Transaction(int order ,String date, String category, String memory, Double amount, String type) {
+        this.order = order;
+        this.date = date;
+        this.category = category;
+        this.memory = memory;
+        this.amount = amount;
+        this.type = type;
 
     }
 
@@ -49,4 +68,19 @@ public class Transaction {
 
     public void setAmountFormat(String amountFormat) { this.amountFormat = amountFormat; }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }

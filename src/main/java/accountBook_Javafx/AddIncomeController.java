@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,57 +18,34 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static accountBook_Javafx.UserController.user;
-
 public class AddIncomeController implements Initializable{
 
-    @FXML
-    private BorderPane addIncomeBorderPane;
-
-    @FXML
-    private Button incomeButton;
-
-    @FXML
-    private Button paidButton;
-
-    @FXML
-    private TextField amount;
-
-    @FXML
-    private Button enter;
-
-    @FXML
-    private Button salary;
-
-    @FXML
-    private Button pocket_money;
-
-    @FXML
-    private Button refund;
-
-    @FXML
-    private Button other;
-
-    @FXML
-    private TextField memo;
-
-    @FXML
-    private TextField date;
-
-    @FXML
-    private ImageView historyButton;
-
-    @FXML
-    private ImageView homeButton;
-    private Transaction transaction = new Transaction();
+    @FXML private BorderPane addIncomeBorderPane;
+    @FXML private Button incomeButton;
+    @FXML private Button paidButton;
+    @FXML private TextField amount;
+    @FXML private Button enter;
+    @FXML private Button salary;
+    @FXML private Button pocket_money;
+    @FXML private Button refund;
+    @FXML private Button other;
+    @FXML private TextField memo;
+    @FXML private DatePicker date;
+    @FXML private ImageView historyButton;
+    @FXML private ImageView homeButton;
+    Transaction transaction = new Transaction();
+    SaveFile saveFile;
 
     @FXML
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
-        transaction.setMemory(memo.getText());
+
         transaction.setAmount(Double.parseDouble(amount.getText()));
-        transaction.setAmountFormat(String.format("%.2f",Double.parseDouble(amount.getText())));
-        transaction.setDate(date.getText());
-        user.addTransactionData(transaction);
+        transaction.setMemory(memo.getText());
+        transaction.setDate(date.getEditor().getText());
+        transaction.setType("income");
+        saveFile = new DatabaseFile(transaction);
+        saveFile.save();
+
 
         //After add finish
         FXMLLoader loader = new FXMLLoader();

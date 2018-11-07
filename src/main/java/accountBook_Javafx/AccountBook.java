@@ -37,7 +37,7 @@ public class AccountBook {
     public double getTotalIncome() {
         totalIncome = 0;
         for (Transaction tran:transactionData) {
-            if(tran.getAmount() >= 0)
+            if(tran.getType().equals("income"))
                 totalIncome += tran.getAmount();
         }
         return totalIncome;
@@ -50,7 +50,7 @@ public class AccountBook {
     public double getTotalExpense() {
         totalExpense = 0;
         for (Transaction tran:transactionData) {
-            if(tran.getAmount() <= 0)
+            if(tran.getType().equals("expense"))
                 totalExpense += tran.getAmount();
 
         }
@@ -62,7 +62,7 @@ public class AccountBook {
     }
 
     public double getTotalBalance() {
-        totalBalance = getTotalIncome()+getTotalExpense();
+        totalBalance = getTotalIncome()-getTotalExpense();
         return totalBalance;
     }
 
