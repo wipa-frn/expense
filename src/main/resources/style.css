@@ -1,3 +1,11 @@
 .table-view{
     -fx-focus-color: transparent;
 }
+
+.select_button{
+    -fx-background-color: #F2D550;
+}
+
+.nonSelect_button{
+    -fx-background-color: #F2D58F;
+}

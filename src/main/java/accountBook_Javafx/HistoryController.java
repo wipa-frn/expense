@@ -1,7 +1,6 @@
 package accountBook_Javafx;
 
 import databaseConnection.DbConnect;
-import javafx.beans.binding.When;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,12 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,16 +34,17 @@ public class HistoryController implements Initializable{
     @FXML private TableColumn<Transaction, String> dateColumn;
     @FXML private TableColumn<Transaction, String> categoryColumn;
     @FXML private TableColumn<Transaction, String> amountColumn;
-    @FXML private ImageView historyButton;
     @FXML private ImageView homeButton;
     @FXML private ImageView addTransactionButton;
     @FXML private Label incomeLabel;
     @FXML private Label paidLabel;
     @FXML private Label showTotalPaid;
     @FXML private Label showTotalIncome;
-    @FXML private ImageView saveFile;
+    @FXML private ImageView saveFileImg;
     @FXML private ImageView deleteButton;
+    @FXML private ImageView editButton;
     private ObservableList<Transaction> observableListTransaction = FXCollections.observableArrayList() ;
+    FileManageable fileManageable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,12 +62,12 @@ public class HistoryController implements Initializable{
             while (rs.next()){
 
                 Double amount = Double.valueOf(String.format("%.2f", rs.getDouble("amount")));
-                listTransaction.add(new Transaction(rs.getInt("order"),rs.getString("date"),rs.getString("category"),rs.getString("memory"),amount,rs.getString("type")));
+                listTransaction.add(new Transaction(rs.getInt("order_id"),rs.getString("date"),rs.getString("category"),rs.getString("memory"),amount,rs.getString("type")));
 
                 if(rs.getString("type").equals("expense")) {
                     amount = -amount;
                 }
-                observableListTransaction.add(new Transaction(rs.getString("date"),rs.getString("category"),String.valueOf(amount)+" ฿"));
+                observableListTransaction.add(new Transaction(rs.getInt("order_id"),rs.getString("date"),rs.getString("category"),rs.getString("memory"),String.valueOf(amount),rs.getString("type")));
 
             }
             user.setTransactionData(listTransaction); //update transaction list
@@ -89,55 +86,31 @@ public class HistoryController implements Initializable{
         amountColumn.setCellFactory(TextFieldTableCell.<Transaction>forTableColumn());
 
         historyTable.setItems(observableListTransaction);
-        historyTable.setEditable(true);
         showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
         showTotalPaid.setText(String.format("- %.2f ฿",user.getTotalExpense()));
 
 
     }
-    @FXML
-    void onEditAmount(TableColumn.CellEditEvent<Transaction,String> editAmountEvent) {
-        //edit in list transaction
-        int indexEdit = historyTable.getSelectionModel().getFocusedIndex();
-
-        double edit = Double.parseDouble(editAmountEvent.getNewValue());
-        user.getTransactionData().get(indexEdit).setAmountFormat(String.format("%.02f", edit));
-        user.getTransactionData().get(indexEdit).setAmount(edit);
-        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
-        showTotalPaid.setText(String.format("%.2f ฿",user.getTotalExpense()));
-
-        editDatabase(indexEdit);
-
-    }
 
     @FXML
-    void onEditCategory(TableColumn.CellEditEvent<Transaction,String> editCategoryEvent) {
-        int indexEdit = historyTable.getSelectionModel().getFocusedIndex();
-        String edit = editCategoryEvent.getNewValue();
-        user.getTransactionData().get(indexEdit).setCategory(edit);
+    void handleClickEditButton(MouseEvent event) throws IOException {
+        if(!historyTable.getSelectionModel().isEmpty()) {
+            FXMLLoader loader = new FXMLLoader();
+            addTransactionButton.getScene().getWindow().hide();
 
-        editDatabase(indexEdit);
+            Transaction t = historyTable.getSelectionModel().getSelectedItem();
+            EditTransactionController edit = (EditTransactionController) loader.getController();
+            edit.setTransaction(t);
 
-    }
 
-    @FXML
-    void onEditDate(TableColumn.CellEditEvent<Transaction,String> editDateEvent) {
-        int indexEdit = historyTable.getSelectionModel().getFocusedIndex();
-        String edit = editDateEvent.getNewValue();
-        user.getTransactionData().get(indexEdit).setDate(edit);
+            Stage homeWindow = new Stage();
+            Parent root = loader.load(getClass().getResource("/editTransaction.fxml"));
 
-        editDatabase(indexEdit);
-    }
+            Scene scene = new Scene(root);
+            homeWindow.setScene(scene);
+            homeWindow.show();
 
-    @FXML
-    void handleClickHistoryButton(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        historyButton.getScene().getWindow().hide();
-        Stage homeWindow = new Stage();
-        Parent root = loader.load(getClass().getResource("/history.fxml"));
-        Scene scene = new Scene(root);
-        homeWindow.setScene(scene);
-        homeWindow.show();
+        }
     }
 
     @FXML
@@ -155,7 +128,7 @@ public class HistoryController implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         addTransactionButton.getScene().getWindow().hide();
         Stage homeWindow = new Stage();
-        Parent root = loader.load(getClass().getResource("/addPaid.fxml"));
+        Parent root = loader.load(getClass().getResource("/addTransaction.fxml"));
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
@@ -163,69 +136,33 @@ public class HistoryController implements Initializable{
 
     @FXML
     void handleSaveFileButton(MouseEvent event) {
-
         //save file to .txt
-        try {
-            FileWriter fw = new FileWriter("historyFile.txt");
-            PrintWriter pw = new PrintWriter(fw);
-            for (Transaction t: user.getTransactionData()) {
-                fw.write("DATE: "+t.getDate()+", ");
-                fw.write("CATEGORY: "+t.getCategory()+", ");
-                fw.write(String.valueOf("AMOUNT: "+t.getAmountFormat()+", "));
-                fw.write("MEM: "+t.getMemory()+" //");
-            }
-            System.out.println("Write on file success.");
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.printf("ERROR");
-        }
-
+        fileManageable = new TextFile(user.getTransactionData());
+        fileManageable.save();
 
     }
     @FXML
-    void handleClickDeleteButton(MouseEvent event) {
-        int index = historyTable.getSelectionModel().getFocusedIndex();
-        user.getTransactionData().remove(index);
-        observableListTransaction = FXCollections.observableArrayList(user.getTransactionData());
-        historyTable.setItems(observableListTransaction);
-        showTotalIncome.setText(String.format("%.2f ฿",user.getTotalIncome()));
-        showTotalPaid.setText(String.format("- %.2f ฿",user.getTotalExpense()));
-    }
+    void handleClickDeleteButton(MouseEvent event) throws IOException {
 
-    public void editDatabase(int indexEdit){
-        //edit data in SQLite
-        Connection connection = DbConnect.getConnection();
-        PreparedStatement pst ;
+        if(!historyTable.getSelectionModel().isEmpty()) {
+            Transaction t = historyTable.getSelectionModel().getSelectedItem();
+            ArrayList<Transaction> tran_remove = user.getTransactionData();
 
-        String sql = "Update transaction_database set date = ?,category = ? , memory = ? ,amount = ?,type = ?)";
-        String dateStr = user.getTransactionData().get(indexEdit).getDate();
-        String categoryStr = user.getTransactionData().get(indexEdit).getCategory();
-        String memoryStr = user.getTransactionData().get(indexEdit).getMemory();
-        Double amount = user.getTransactionData().get(indexEdit).getAmount();
-        String typeStr = user.getTransactionData().get(indexEdit).getType();
-
-        try{
-            pst = connection.prepareStatement(sql);
-            pst.setString(1,dateStr);
-            pst.setString(2,categoryStr);
-            pst.setString(3,memoryStr);
-            pst.setDouble(4,amount);
-            pst.setString(5,typeStr);
-            pst.executeUpdate();
-            System.out.println(" Data insert successfully! ");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                connection.close();
-                System.out.println("Close database");
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (tran_remove.get(t.getOrder() - 1).getOrder() == t.getOrder()) {
+                tran_remove.remove(t.getOrder() - 1);
+                observableListTransaction.remove(t.getOrder() - 1);
+                user.setTransactionData(tran_remove);   //update array of transaction
+                fileManageable = new DatabaseFile(t);
+                fileManageable.delete();                //update database
             }
+
+            historyTable.setItems(observableListTransaction);
+
+            showTotalIncome.setText(String.format("%.2f ฿", user.getTotalIncome()));
+            showTotalPaid.setText(String.format("- %.2f ฿", user.getTotalExpense()));
         }
+
     }
+
 
 }

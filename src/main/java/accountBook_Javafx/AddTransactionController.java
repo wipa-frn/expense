@@ -1,5 +1,7 @@
 package accountBook_Javafx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -16,30 +19,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
+public class AddTransactionController implements Initializable{
 
-public class AddPaidController implements Initializable{
-
-    @FXML private BorderPane addPaidBorderPane;
-    @FXML private DatePicker date;
+    @FXML private BorderPane addIncomeBorderPane;
     @FXML private Button incomeButton;
     @FXML private Button paidButton;
     @FXML private TextField amount;
-    @FXML private Button enter;
-    @FXML private Button food;
-    @FXML private Button transport;
-    @FXML private Button cosmetic;
-    @FXML private Button study;
-    @FXML private Button social;
-    @FXML private Button fashion;
-    @FXML private Button other;
     @FXML private TextField memo;
+    @FXML private DatePicker date;
     @FXML private ImageView historyButton;
     @FXML private ImageView homeButton;
-    SaveFile saveFile;
+    @FXML private ChoiceBox<String> categoryChoices;
     Transaction transaction = new Transaction();
+    FileManageable fileManageable;
 
     @FXML
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
@@ -47,9 +41,9 @@ public class AddPaidController implements Initializable{
         transaction.setAmount(Double.parseDouble(amount.getText()));
         transaction.setMemory(memo.getText());
         transaction.setDate(date.getEditor().getText());
-        transaction.setType("expense");
-        saveFile = new DatabaseFile(transaction);
-        saveFile.save();
+        transaction.setCategory(categoryChoices.getSelectionModel().getSelectedItem());
+        fileManageable = new DatabaseFile(transaction);
+        fileManageable.save();
 
 
         //After add finish
@@ -60,50 +54,35 @@ public class AddPaidController implements Initializable{
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
+
     }
 
     @FXML
-    void handleButtonCosmetic(ActionEvent event) {
-        transaction.setCategory("Cosmetic");
+    void handleButtonIncome(ActionEvent event) {
+        incomeButton.getStyleClass().add("select_button");
+        paidButton.getStyleClass().add("nonSelect_button");
+        transaction.setType("income");
+
+        ObservableList<String> categoryList = FXCollections.observableArrayList("Salary", "Refunds","Sale","Other");
+        categoryChoices.getSelectionModel().selectFirst();
+        categoryChoices.setValue("Salary");
+        categoryChoices.getItems().setAll(categoryList);
     }
 
     @FXML
-    void handleButtonFashion(ActionEvent event) {
-        transaction.setCategory("Fashion");
+    void handleButtonPaid(ActionEvent event){
+
+        paidButton.getStyleClass().add("select_button");
+        incomeButton.getStyleClass().add("nonSelect_button");
+        transaction.setType("expense");
+
+        ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation","Shopping","Health","Other");
+        categoryChoices.getSelectionModel().selectFirst();
+        categoryChoices.setValue("Food");
+        categoryChoices.getItems().setAll(categoryList);
+
     }
 
-    @FXML
-    void handleButtonFood(ActionEvent event) {
-        transaction.setCategory("Food");
-    }
-
-    @FXML
-    void handleButtonIncome(ActionEvent event) throws IOException {
-
-        BorderPane paneIncome = FXMLLoader.load(getClass().getResource("/addIncome.fxml"));
-        addPaidBorderPane.getChildren().setAll(paneIncome);
-    }
-
-    @FXML
-    void handleButtonPaid(ActionEvent event) {  }
-
-    @FXML
-    void handleButtonOther(ActionEvent event) {
-        transaction.setCategory("Other");
-    }
-
-    @FXML
-    void handleButtonSocial(ActionEvent event) {
-        transaction.setCategory("Social");
-    }
-
-    @FXML
-    void handleButtonStudy(ActionEvent event) {
-        transaction.setCategory("Study");
-    }
-
-    @FXML
-    void handleButtonTransport(ActionEvent event) { transaction.setCategory("Transport"); }
 
     @FXML
     void handleClickHistoryButton(MouseEvent event) throws IOException {
@@ -125,15 +104,20 @@ public class AddPaidController implements Initializable{
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
-//        BorderPane paneHome = FXMLLoader.load(getClass().getResource("/home.fxml"));
-//        transactionBorderPane.getChildren().setAll(paneHome);
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amount.setPromptText("0.00");
         date.setPromptText("day/mount/year");
         memo.setPromptText("Enter your memory");
+
+        ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation","Shopping","Health","Other");
+        categoryChoices.getSelectionModel().selectFirst();
+        categoryChoices.setValue("Food");
+        categoryChoices.getItems().setAll(categoryList);
+        transaction.setType("expense");
+
+
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static accountBook_Javafx.UserController.user;
 
-public class TextFile implements SaveFile {
+public class TextFile implements FileManageable {
     ArrayList transactionList;
     public TextFile(ArrayList tstList) {
         this.transactionList = tstList;
@@ -20,10 +20,11 @@ public class TextFile implements SaveFile {
             FileWriter fw = new FileWriter("historyFile.txt");
             PrintWriter pw = new PrintWriter(fw);
             for (Transaction t: user.getTransactionData()) {
+                fw.write("Order: "+t.getOrder()+", ");
                 fw.write("DATE: "+t.getDate()+", ");
                 fw.write("CATEGORY: "+t.getCategory()+", ");
                 fw.write(String.valueOf("AMOUNT: "+t.getAmountFormat()+", "));
-                fw.write("MEM: "+t.getMemory()+" //");
+                fw.write("MEM: "+t.getMemory()+"\n");
             }
             System.out.println("Write on file success.");
             fw.close();
@@ -31,5 +32,15 @@ public class TextFile implements SaveFile {
             e.printStackTrace();
             System.err.printf("ERROR");
         }
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

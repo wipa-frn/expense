@@ -56,7 +56,7 @@ public class HomeController implements Initializable{
     @FXML
     void handleButtonAddTransaction(ActionEvent event) throws IOException {
 
-        BorderPane panePaid = FXMLLoader.load(getClass().getResource("/addPaid.fxml"));
+        BorderPane panePaid = FXMLLoader.load(getClass().getResource("/addTransaction.fxml"));
         homeBorderPane.getChildren().setAll(panePaid);
 
 
@@ -92,7 +92,7 @@ public class HomeController implements Initializable{
             while (rs.next()){
 
                 Double amount = Double.valueOf(String.format("%.2f", rs.getDouble("amount")));
-                listTransaction.add(new Transaction(rs.getInt("order"),rs.getString("date"),rs.getString("category"),rs.getString("memory"),amount,rs.getString("type")));
+                listTransaction.add(new Transaction(rs.getInt("order_id"),rs.getString("date"),rs.getString("category"),rs.getString("memory"),amount,rs.getString("type")));
 
             }
             user.setTransactionData(listTransaction); //update transaction list

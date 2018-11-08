@@ -19,19 +19,21 @@ public class Transaction {
 
     }
 
-    public Transaction(String date, String category, String amount) {
-        this.date = date;
-        this.category = category;
-        this.amountFormat = amount;
-
-    }
-
     public Transaction(int order ,String date, String category, String memory, Double amount, String type) {
         this.order = order;
         this.date = date;
         this.category = category;
         this.memory = memory;
         this.amount = amount;
+        this.type = type;
+
+    }
+    public Transaction(int order ,String date, String category, String memory, String amountFormat, String type) {
+        this.order = order;
+        this.date = date;
+        this.category = category;
+        this.memory = memory;
+        this.amountFormat = amountFormat;
         this.type = type;
 
     }

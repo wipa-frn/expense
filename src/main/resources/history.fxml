@@ -47,9 +47,9 @@
             </AnchorPane>
             <TableView fx:id="historyTable" layoutY="97.0" prefHeight="412.0" prefWidth="335.0" stylesheets="@style.css">
               <columns>
-                <TableColumn fx:id="dateColumn" onEditCommit="#onEditDate" prefWidth="79.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Date" />
-                <TableColumn fx:id="categoryColumn" onEditCommit="#onEditCategory" prefWidth="134.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
-                  <TableColumn fx:id="amountColumn" onEditCommit="#onEditAmount" prefWidth="121.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Amount" />
+                <TableColumn fx:id="dateColumn" prefWidth="79.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Date" />
+                <TableColumn fx:id="categoryColumn" prefWidth="149.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
+                  <TableColumn fx:id="amountColumn" prefWidth="106.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Amount" />
               </columns>
             </TableView>
          </children>
@@ -85,9 +85,9 @@
                         <Image url="@image/note.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="historyButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleClickHistoryButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                  <ImageView fx:id="editButton" fitHeight="39.0" fitWidth="37.0" onMouseClicked="#handleClickEditButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
-                        <Image url="@image/list.png" />
+                        <Image url="@image/edit.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="deleteButton" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleClickDeleteButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
