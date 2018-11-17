@@ -1,82 +1,72 @@
 package accountBook_Javafx;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import databaseConnection.FileManageable;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class AccountBook {
 
     private String username;
-    private ArrayList<Transaction> transactionData = new ArrayList<Transaction>();
     private double totalIncome;
     private double totalExpense;
     private double totalBalance;
+    private List<Transaction> transactionList;
+    private FileManageable transactionManager;
 
-    public AccountBook(String username) {
+    public AccountBook(String username,FileManageable transactionManager) {
         this.username = username;
         this.totalIncome = 0.0;
         this.totalExpense = 0.0;
         this.totalBalance = 0.0;
+        this.transactionManager = transactionManager;
     }
 
-    public String getUsername() { return username; }
-
-    public void setUsername(String username) { this.username = username; }
-
-    public ArrayList<Transaction> getTransactionData() {
-        return transactionData;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTransactionData(ArrayList<Transaction> transactionData) {
-        this.transactionData = transactionData;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void addTransactionData(Transaction tran){ transactionData.add(tran); }
-
-    public void removeTransactionData(Transaction tran){ transactionData.remove(tran); }
-
-    public double getTotalIncome() {
-        totalIncome = 0;
-        for (Transaction tran:transactionData) {
-            if(tran.getType().equals("income"))
-                totalIncome += tran.getAmount();
-        }
+    public double getTotalIncome() throws SQLException {
+        calTotal();
         return totalIncome;
     }
 
-    public void setTotalIncome(double totalIncome) {
-        this.totalIncome = totalIncome;
-    }
-
-    public double getTotalExpense() {
-        totalExpense = 0;
-        for (Transaction tran:transactionData) {
-            if(tran.getType().equals("expense"))
-                totalExpense += tran.getAmount();
-
-        }
+    public double getTotalExpense() throws SQLException {
+        calTotal();
         return totalExpense;
     }
 
-    public void setTotalExpense(double totalExpense) {
-        this.totalExpense = totalExpense;
-    }
-
-    public double getTotalBalance() {
-        totalBalance = getTotalIncome()-getTotalExpense();
+    public double getTotalBalance() throws SQLException {
+        calTotal();
         return totalBalance;
     }
 
-    public void setTotalBalance(double totalBalance) {
-        this.totalBalance = totalBalance;
-    }
+    void calTotal() throws SQLException {
+        totalBalance=0;
+        totalIncome=0;
+        totalExpense=0;
+        transactionList = transactionManager.getAllTransactions();
 
-    public ArrayList<String> getDateList(){
-        HashSet<String> dateSet = new HashSet<String>();
-        for (Transaction d: transactionData){
-            dateSet.add(d.getDate());
+        for (Transaction t:transactionList ) {
+            if (t.getType().equals("income")){
+                totalIncome += t.getAmount();
+            }
+            else if (t.getType().equals("expense"))
+                totalExpense += t.getAmount();
         }
-        ArrayList<String> dateList = new ArrayList<String>(dateSet);
-        return dateList;
+
+        totalBalance = totalIncome-totalExpense;
     }
 
+    public FileManageable getTransactionManager() {
+        return transactionManager;
+    }
+
+    public void setTransactionManager(FileManageable transactionManager) {
+        this.transactionManager = transactionManager;
+    }
 }

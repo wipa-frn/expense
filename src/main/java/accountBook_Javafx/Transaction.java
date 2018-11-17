@@ -19,24 +19,21 @@ public class Transaction {
 
     }
 
-    public Transaction(int order ,String date, String category, String memory, Double amount, String type) {
+    public Transaction(int order, String date, String category, String memory, Double amount, String type) {
         this.order = order;
         this.date = date;
         this.category = category;
         this.memory = memory;
         this.amount = amount;
         this.type = type;
+        if (type.equals("expense")){
+            this.amountFormat = String.format("%,.2f",-amount);
+        }
+        else
+            this.amountFormat = String.format("%,.2f",amount);
 
     }
-    public Transaction(int order ,String date, String category, String memory, String amountFormat, String type) {
-        this.order = order;
-        this.date = date;
-        this.category = category;
-        this.memory = memory;
-        this.amountFormat = amountFormat;
-        this.type = type;
 
-    }
 
     public String getDate() {
         return date;
@@ -64,11 +61,21 @@ public class Transaction {
 
     public Double getAmount() { return amount; }
 
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-    public String getAmountFormat() { return amountFormat; }
+    public String getAmountFormat() {
+        setAmountFormat();
+        return amountFormat; }
 
-    public void setAmountFormat(String amountFormat) { this.amountFormat = amountFormat; }
+    public void setAmountFormat() {
+        if (type.equals("expense")){
+            this.amountFormat = String.format("%,.2f",-amount);
+        }
+        else
+            this.amountFormat = String.format("%,.2f",amount);
+    }
 
     public String getType() {
         return type;
@@ -82,7 +89,4 @@ public class Transaction {
         return order;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
-    }
 }
