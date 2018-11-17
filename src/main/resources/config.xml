@@ -5,10 +5,30 @@
         xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="user" class="accountBook_Javafx.AccountBook">
-                <constructor-arg value="wipawadee"/>
 
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+                <property name="driverClassName" value="org.sqlite.JDBC" />
+                <property name="url" value="jdbc:sqlite:accountBook.db" />
         </bean>
+
+
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource" />
+        </bean>
+
+        <bean id="SpringJDBC_DB" class="databaseConnection.SpringJDBC_DB">
+                <constructor-arg ref="jdbcTemplate"/>
+        </bean>
+
+
+        <bean id="sqliteDB" class="databaseConnection.SqliteDB"/>
+
+        <bean id="user" class="accountBook_Javafx.AccountBook">
+                <constructor-arg value="Wipawadee"/>
+                <constructor-arg ref="SpringJDBC_DB"/>
+        </bean>
+
+
 
 
 </beans>
