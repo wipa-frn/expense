@@ -43,12 +43,12 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="incomeButton" layoutX="66.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonIncome" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D58F;" stylesheets="@style.css" text="Income" textFill="WHITE">
+            <Button fx:id="incomeButton" layoutX="66.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonIncome" prefHeight="35.0" prefWidth="90.0" styleClass="nonSelect_button" stylesheets="@style.css" text="Income" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="paidButton" layoutX="167.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonPaid" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D550;" stylesheets="@style.css" text="Paid" textFill="WHITE">
+            <Button fx:id="paidButton" layoutX="167.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonPaid" prefHeight="35.0" prefWidth="90.0" styleClass="select_button" stylesheets="@style.css" text="Paid" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="enter" layoutX="102.0" layoutY="410.0" mnemonicParsing="false" onAction="#handleButtonEditTransaction" prefHeight="33.0" prefWidth="127.0" text="Edit Transaction">
+            <Button fx:id="editTransaction" layoutX="102.0" layoutY="410.0" mnemonicParsing="false" onAction="#handleButtonEditTransaction" prefHeight="33.0" prefWidth="127.0" text="Edit Transaction">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -98,23 +98,6 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <ImageView fx:id="historyButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleClickHistoryButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <image>
-                        <Image url="@image/list.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="homeButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleClickHomeButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <image>
-                        <Image url="@image/home.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                     <image>
-                        <Image url="@image/user.png" />
-                     </image>
-                  </ImageView>
-               </children>
             </GridPane>
          </children>
       </AnchorPane>

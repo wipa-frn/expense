@@ -4,22 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import static accountBook_Javafx.UserController.user;
 
 public class EditTransactionController implements Initializable{
     @FXML private BorderPane addIncomeBorderPane;
@@ -31,109 +30,87 @@ public class EditTransactionController implements Initializable{
     @FXML private ImageView historyButton;
     @FXML private ImageView homeButton;
     @FXML private ChoiceBox<String> categoryChoices;
-    private FileManageable fileManageable;
+    @FXML private Button editTransaction;
     private Transaction transaction ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        amount.setPromptText("0.00");
-        date.setPromptText("day/mount/year");
-        memo.setPromptText("Enter your memory");
 
-        if(transaction.getType() == "income"){
-
-            incomeButton.getStyleClass().add("select_button");
-            paidButton.getStyleClass().add("nonSelect_button");
-
-            ObservableList<String> categoryList = FXCollections.observableArrayList("Salary", "Refunds","Sale","Other");
-            categoryChoices.getSelectionModel().selectFirst();
-            categoryChoices.setValue("Salary");
-            categoryChoices.getItems().setAll(categoryList);
-        }
-
-        else {
-
-            paidButton.getStyleClass().add("select_button");
-            incomeButton.getStyleClass().add("nonSelect_button");
-
-            ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation","Shopping","Health","Other");
-            categoryChoices.getSelectionModel().selectFirst();
-            categoryChoices.setValue("Food");
-            categoryChoices.getItems().setAll(categoryList);
-        }
-
-    }
-    @FXML
-    void handleClickHistoryButton(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        historyButton.getScene().getWindow().hide();
-        Stage homeWindow = new Stage();
-        Parent root = loader.load(getClass().getResource("/history.fxml"));
-        Scene scene = new Scene(root);
-        homeWindow.setScene(scene);
-        homeWindow.show();
-    }
-
-    @FXML
-    void handleClickHomeButton(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        homeButton.getScene().getWindow().hide();
-        Stage homeWindow = new Stage();
-        Parent root = loader.load(getClass().getResource("/home.fxml"));
-        Scene scene = new Scene(root);
-        homeWindow.setScene(scene);
-        homeWindow.show();
     }
 
     @FXML
     void handleButtonEditTransaction(ActionEvent event) throws IOException {
 
         transaction.setAmount(Double.parseDouble(amount.getText()));
+        transaction.setAmountFormat();
         transaction.setMemory(memo.getText());
         transaction.setDate(date.getEditor().getText());
         transaction.setCategory(categoryChoices.getSelectionModel().getSelectedItem());
-        fileManageable = new DatabaseFile(transaction);
-        fileManageable.update();
 
+        user.getTransactionManager().update(transaction);
 
-        //After add finish
-        FXMLLoader loader = new FXMLLoader();
-        historyButton.getScene().getWindow().hide();
-        Stage homeWindow = new Stage();
-        Parent root = loader.load(getClass().getResource("/history.fxml"));
-        Scene scene = new Scene(root);
-        homeWindow.setScene(scene);
-        homeWindow.show();
+        //when edit finished close page
+        Stage stage = (Stage) editTransaction.getScene().getWindow();
+        stage.close();
 
     }
 
     @FXML
     void handleButtonIncome(ActionEvent event) {
-        incomeButton.getStyleClass().add("select_button");
-        paidButton.getStyleClass().add("nonSelect_button");
+
         transaction.setType("income");
+        incomeButton.setStyle("-fx-background-color: #F2D550"); //SELECT BUTTON
+        paidButton.setStyle("-fx-background-color: #F2D58F");   //NON_SELECT BUTTON
 
         ObservableList<String> categoryList = FXCollections.observableArrayList("Salary", "Refunds","Sale","Other");
-        categoryChoices.getSelectionModel().selectFirst();
         categoryChoices.setValue("Salary");
+        categoryChoices.getSelectionModel().selectFirst();
         categoryChoices.getItems().setAll(categoryList);
     }
 
     @FXML
-    void handleButtonPaid(ActionEvent event){
+    void handleButtonPaid(ActionEvent event) {
 
-        paidButton.getStyleClass().add("select_button");
-        incomeButton.getStyleClass().add("nonSelect_button");
         transaction.setType("expense");
+        paidButton.setStyle("-fx-background-color: #F2D550");       //SELECT BUTTON
+        incomeButton.setStyle("-fx-background-color: #F2D58F");   //NON_SELECT BUTTON
 
-        ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation","Shopping","Health","Other");
-        categoryChoices.getSelectionModel().selectFirst();
+        ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation", "Shopping", "Health", "Other");
         categoryChoices.setValue("Food");
+        categoryChoices.getSelectionModel().selectFirst();
         categoryChoices.getItems().setAll(categoryList);
-
     }
 
     public void setTransaction(Transaction transaction) {
+
         this.transaction = transaction;
+        setUpTransaction();
+    }
+
+    public void setUpTransaction(){
+
+        if(transaction.getType().equals("expense")){
+            paidButton.setStyle("-fx-background-color: #F2D550");       //SELECT BUTTON
+            incomeButton.setStyle("-fx-background-color: #F2D58F");   //NON_SELECT BUTTON
+
+            ObservableList<String> categoryList = FXCollections.observableArrayList("Food", "Transportation","Shopping","Health","Other");
+            categoryChoices.getSelectionModel().selectFirst();
+            categoryChoices.setValue(transaction.getCategory());
+            categoryChoices.getItems().setAll(categoryList);
+        }
+        else {
+            incomeButton.setStyle("-fx-background-color: #F2D550");       //SELECT BUTTON
+            paidButton.setStyle("-fx-background-color: #F2D58F");   //NON_SELECT BUTTON
+
+            ObservableList<String> categoryList = FXCollections.observableArrayList("Salary", "Refunds","Sale","Other");
+            categoryChoices.getSelectionModel().selectFirst();
+            categoryChoices.setValue(transaction.getCategory());
+            categoryChoices.getItems().setAll(categoryList);
+        }
+
+        amount.setText(String.valueOf(transaction.getAmount()));
+        String[] dateCut = transaction.getDate().split("/");
+        date.setValue(LocalDate.of(Integer.valueOf(dateCut[2]),Integer.valueOf(dateCut[0]),Integer.valueOf(dateCut[1])));
+        memo.setText(transaction.getMemory());
     }
 }
