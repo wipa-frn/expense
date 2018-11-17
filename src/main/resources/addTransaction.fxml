@@ -43,12 +43,12 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="incomeButton" layoutX="66.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonIncome" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D58F;" text="Income" textFill="WHITE">
+            <Button fx:id="incomeButton" layoutX="66.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonIncome" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D58F;" styleClass="nonSelect_button" stylesheets="@style.css" text="Income" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="paidButton" layoutX="167.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonPaid" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D550;" stylesheets="@style.css" text="Paid" textFill="WHITE">
+            <Button fx:id="paidButton" layoutX="167.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonPaid" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #F2D550;" styleClass="select_button" stylesheets="@style.css" text="Paid" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
