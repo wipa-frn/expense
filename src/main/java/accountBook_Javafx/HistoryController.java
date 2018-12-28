@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
@@ -42,10 +43,36 @@ public class HistoryController implements Initializable{
     @FXML private ImageView saveFileImg;
     @FXML private ImageView deleteButton;
     @FXML private ImageView editButton;
+    @FXML private Label editTooltip;
+    @FXML private Label writeOnFileTooltip;
+    @FXML private Label homeTooltip;
+    @FXML private Label addTooltip;
+    @FXML private Label deleteTooltip;
+    @FXML private Label refreshTooltip;
+    Tooltip tooltipWriteFile = new Tooltip();
+    Tooltip tooltipEditTransaction = new Tooltip();
+    Tooltip tooltipHome = new Tooltip();
+    Tooltip tooltipAddTransaction = new Tooltip();
+    Tooltip tooltipDeleteTransaction = new Tooltip();
+    Tooltip tooltipRefreshTransaction = new Tooltip();
     ObservableList<Transaction> observableListTransaction;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tooltipEditTransaction.setText("Edit transaction");
+        tooltipWriteFile.setText("Write on file");
+        tooltipHome.setText("Home");
+        tooltipAddTransaction.setText("Add transaction");
+        tooltipDeleteTransaction.setText("Delete transaction");
+        tooltipRefreshTransaction.setText("Refresh transaction");
+        editTooltip.setTooltip(tooltipEditTransaction);
+        writeOnFileTooltip.setTooltip(tooltipWriteFile);
+        homeTooltip.setTooltip(tooltipHome);
+        addTooltip.setTooltip(tooltipAddTransaction);
+        deleteTooltip.setTooltip(tooltipDeleteTransaction);
+        refreshTooltip.setTooltip(tooltipRefreshTransaction);
+
 
         try {
             showTableView();
@@ -92,7 +119,7 @@ public class HistoryController implements Initializable{
                 Stage stage = new Stage(StageStyle.DECORATED);
                 stage.show();
                 stage.setScene(new Scene(parent));
-
+                stage.centerOnScreen();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,6 +136,7 @@ public class HistoryController implements Initializable{
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
+        homeWindow.centerOnScreen();
     }
     @FXML
     void handleAddTransactionButton(MouseEvent event) throws IOException {
@@ -119,6 +147,8 @@ public class HistoryController implements Initializable{
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
         homeWindow.show();
+        homeWindow.centerOnScreen();
+
     }
 
     @FXML

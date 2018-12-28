@@ -103,6 +103,7 @@ public class AddTransactionController implements Initializable{
         Stage homeWindow = new Stage();
         Parent root = loader.load(getClass().getResource("/history.fxml"));
         Scene scene = new Scene(root);
+        homeWindow.centerOnScreen();
         homeWindow.setScene(scene);
         homeWindow.show();
     }
@@ -115,6 +116,7 @@ public class AddTransactionController implements Initializable{
         Parent root = loader.load(getClass().getResource("/home.fxml"));
         Scene scene = new Scene(root);
         homeWindow.setScene(scene);
+        homeWindow.centerOnScreen();
         homeWindow.show();
     }
 }

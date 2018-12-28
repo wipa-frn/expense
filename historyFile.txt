@@ -1,0 +1,7 @@
+Order: 1, Date: 11/17/2018, Category: Salary, Memory: get salary, Amount: 3,000.00, Type: income
+Order: 2, Date: 11/17/2018, Category: Shopping, Memory: t-shirt, Amount: -200.00, Type: expense
+Order: 3, Date: 11/17/2018, Category: Food, Memory: iceream, Amount: -30.00, Type: expense
+Order: 4, Date: 11/17/2018, Category: Shopping, Memory: cosmetic, Amount: -120.00, Type: expense
+Order: 5, Date: 11/17/2018, Category: Salary, Memory: mom gift, Amount: 500.00, Type: income
+Order: 6, Date: 11/17/2018, Category: Food, Memory: eat, Amount: -30.00, Type: expense
+Order: 7, Date: 11/17/2018, Category: Food, Memory: eat, Amount: -50.00, Type: expense

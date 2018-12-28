@@ -18,10 +18,6 @@
    <top>
       <AnchorPane prefHeight="45.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="39.0" fitWidth="28.0" layoutX="11.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@image/left-arrow (2).png" />
-               </image></ImageView>
             <ImageView fitHeight="33.0" fitWidth="40.0" layoutX="288.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/user.png" />

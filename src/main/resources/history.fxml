@@ -16,11 +16,6 @@
    <top>
       <AnchorPane prefHeight="45.0" prefWidth="335.0" style="-fx-background-color: #97C5D8;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="11.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@image/left-arrow (2).png" />
-               </image>
-            </ImageView>
             <Label alignment="CENTER" layoutX="102.0" layoutY="3.0" prefHeight="40.0" prefWidth="121.0" text="History" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -43,11 +38,12 @@
                   <Label layoutX="34.0" layoutY="46.0" text="Paid" />
                   <Label fx:id="showTotalIncome" alignment="CENTER_RIGHT" layoutX="105.0" layoutY="19.0" prefHeight="24.0" prefWidth="197.0" text="0.00 ฿" textAlignment="RIGHT" />
                   <Label fx:id="showTotalPaid" alignment="CENTER_RIGHT" layoutX="107.0" layoutY="42.0" prefHeight="24.0" prefWidth="195.0" text="0.00 ฿" textAlignment="RIGHT" />
-                  <ImageView fx:id="updateButton" fitHeight="25.0" fitWidth="37.0" layoutX="302.0" layoutY="68.0" onMouseClicked="#handleUpdateButton" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="updateButton" fitHeight="25.0" fitWidth="37.0" layoutX="302.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/exchange.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="refreshTooltip" layoutX="300.0" layoutY="66.0" onMouseClicked="#handleUpdateButton" prefHeight="28.0" prefWidth="29.0" />
                </children>
             </AnchorPane>
             <TableView fx:id="historyTable" layoutY="97.0" prefHeight="412.0" prefWidth="335.0" stylesheets="@style.css">
@@ -75,31 +71,36 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ImageView fx:id="homeButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleClickHomeButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <ImageView fx:id="homeButton" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="addTransactionButton" fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleAddTransactionButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                  <ImageView fx:id="addTransactionButton" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/add (1).png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="saveFile" fitHeight="41.0" fitWidth="42.0" layoutX="228.0" layoutY="17.0" onMouseClicked="#handleSaveFileButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <ImageView fx:id="saveFile" fitHeight="41.0" fitWidth="42.0" layoutX="228.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/note.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="editButton" fitHeight="39.0" fitWidth="37.0" onMouseClicked="#handleClickEditButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                  <ImageView fx:id="editButton" fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/edit.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="deleteButton" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleClickDeleteButton" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                  <ImageView fx:id="deleteButton" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@image/delete.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="editTooltip" onMouseClicked="#handleClickEditButton" prefHeight="55.0" prefWidth="68.0" />
+                  <Label fx:id="writeOnFileTooltip" onMouseClicked="#handleSaveFileButton" prefHeight="55.0" prefWidth="68.0" GridPane.columnIndex="1" />
+                  <Label fx:id="homeTooltip" onMouseClicked="#handleClickHomeButton" prefHeight="55.0" prefWidth="68.0" GridPane.columnIndex="2" />
+                  <Label fx:id="addTooltip" onMouseClicked="#handleAddTransactionButton" prefHeight="55.0" prefWidth="68.0" GridPane.columnIndex="3" />
+                  <Label fx:id="deleteTooltip" onMouseClicked="#handleClickDeleteButton" prefHeight="55.0" prefWidth="68.0" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </children></AnchorPane>
